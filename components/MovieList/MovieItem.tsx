@@ -1,20 +1,25 @@
 import { Movie } from "../../store/movies/types";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackScreenProps } from "../../navigation";
 
 interface MovieProps {
     movie: Movie;
 }
 
 export function MovieItem({movie}: MovieProps) {
-    console.log(movie)
+    const navigation = useNavigation<RootStackScreenProps<"Movie">["navigation"]>();
+
     return (
-        <View style={styles.movie}>
+        <TouchableOpacity style={styles.movie} onPress={() => navigation.navigate("Movie", {
+            movieId: movie.id
+        })}>
             <Image style={styles.movieImage} source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`}} />
             <View style={styles.infoContainer}>
                 <Text style={styles.movieTitle}>{movie.title}</Text>
                 {/* <Text>Genres: {movie.genres.join(", ")}</Text> */}
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -1,6 +1,6 @@
 import { useGetMoviesQuery } from "../../store/movies/movieSlice"
 import { ActivityIndicator, Text, FlatList } from "react-native";
-import { MovieItem } from "./Movie";
+import { MovieItem } from "./MovieItem";
 
 interface MovieListParams {
     query: string;

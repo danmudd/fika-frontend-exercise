@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, TextInput } from "react-native";
 import { MovieList } from "../components/MovieList/MovieList";
 import useDebounce from "../hooks/useDebounce";
 
-export function MovieScreen() {
+export function MovieListScreen() {
     const [query, setQuery] = useState<string>("");
     const debouncedQuery = useDebounce<string>(query, 500);
 

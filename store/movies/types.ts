@@ -14,12 +14,14 @@ interface Movie {
     vote_average: number;
 }
 
-interface MovieResponse {
+interface MoviesResponse {
     page: number;
     results: Array<Movie>;
     total_pages: number;
     total_results: number;
 }
+
+type MovieResponse = Movie;
 
 interface Genre {
     id: number;
@@ -30,4 +32,4 @@ interface GenreResponse {
     genres: Array<Genre>
 }
 
-export { Movie, Genre, MovieResponse, GenreResponse };
+export { Movie, Genre, MovieResponse, MoviesResponse, GenreResponse };
