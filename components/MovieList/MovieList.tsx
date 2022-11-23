@@ -1,22 +1,24 @@
 import { useGetMoviesQuery } from "../../store/movies/movieSlice"
 import { ActivityIndicator, Text, FlatList } from "react-native";
+import { MovieItem } from "./Movie";
 
-export function MovieList() {
-    const { data: movies, isError, isLoading } = useGetMoviesQuery();
+interface MovieListParams {
+    query: string;
+}
 
-    console.log(movies?.results[0]);
+export function MovieList({query}: MovieListParams) {
+    const { data: movies, isError, isFetching } = useGetMoviesQuery(query);
 
     return (
         <>
-        <Text>Movies:</Text>
             {isError ? (
                 <Text>Error loading movies</Text>
-            ) : isLoading ? (
+            ) : isFetching ? (
                 <ActivityIndicator />
             ) : movies ? (
                 <FlatList 
                     data={movies.results}                    
-                    renderItem={({item}) => <Text>{item.title}</Text>}
+                    renderItem={({item}) => <MovieItem movie={item} />}
                 />
             ) : null}
         </>
