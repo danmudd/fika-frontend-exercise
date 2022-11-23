@@ -3,6 +3,7 @@ interface Movie {
     title: string;
     adult: boolean;
     backdrop_path: string | null;
+    poster_path: string;
     overview: string;
     release_date: string;
     original_title: string;

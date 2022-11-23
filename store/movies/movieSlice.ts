@@ -11,14 +11,27 @@ export const moviesApi = createApi({
     reducerPath: 'moviesApi',
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3/" }),
     endpoints: (builder) => ({
-        getMovies: builder.query<MovieResponse, void>({
-            query: () => ({
-                url: 'discover/movie',
-                params: { 
-                    ...defaultParams, 
-                    include_adult: "false" 
+        getMovies: builder.query<MovieResponse, string>({
+            query: (query) => {
+                if (query !== "") {
+                    return {
+                        url: 'search/movie',
+                        params: { 
+                            ...defaultParams, 
+                            include_adult: "false",
+                            query
+                        }
+                    }
+                } else {
+                    return {
+                        url: 'discover/movie',
+                        params: { 
+                            ...defaultParams, 
+                            include_adult: "false",
+                        }
+                    }
                 }
-            })
+            }
         }),
         getGenres: builder.query<GenreResponse, void>({
             query: () => ({
@@ -26,16 +39,6 @@ export const moviesApi = createApi({
                 params: { ...defaultParams }
             })
         }),
-        searchMovies: builder.query<MovieResponse, string>({
-            query: (query) => ({
-                url: 'search/movie',
-                params: { 
-                    ...defaultParams, 
-                    include_adult: "false",
-                    query
-                }
-            })
-        })
     })
 })
 
