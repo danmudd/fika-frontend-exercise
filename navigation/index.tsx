@@ -20,7 +20,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Movies">
-      <Stack.Screen name="Movies" component={MovieListScreen} />
+      <Stack.Screen
+        name="Movies"
+        options={{ title: "Fika Search" }}
+        component={MovieListScreen}
+      />
       <Stack.Screen name="Movie" component={MovieDetailScreen} />
     </Stack.Navigator>
   );

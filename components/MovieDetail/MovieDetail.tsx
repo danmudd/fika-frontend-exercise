@@ -1,6 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { ActivityIndicator, Text } from "react-native";
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useGetMovieQuery } from "../../store/movies/movieSlice";
 
 interface MovieDetailProps {
@@ -27,9 +33,45 @@ export function MovieDetail({ movieId }: MovieDetailProps) {
         <ActivityIndicator />
       ) : movie ? (
         <>
-          <Text>{movie.title}</Text>
+          <View style={styles.coverImageWrapper}>
+            <ImageBackground
+              style={styles.coverImage}
+              source={{ uri: movie.poster_path }}
+            >
+              <View style={styles.titleOverlay}>
+                <Text style={styles.title}>{movie.title}</Text>
+              </View>
+            </ImageBackground>
+          </View>
         </>
       ) : null}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  coverImageWrapper: {
+    height: 200,
+    overflow: "hidden",
+  },
+  coverImage: {
+    width: "100%",
+    height: 600,
+    resizeMode: "cover",
+  },
+  title: {
+    color: "#fff",
+    fontSize: 20,
+    textAlign: "right",
+  },
+  titleOverlay: {
+    marginLeft: "auto",
+    backgroundColor: "rgba(50,50,50,0.6)",
+    margin: 10,
+    padding: 5,
+    borderRadius: 10,
+    maxWidth: "40%",
+    borderWidth: 1,
+    borderColor: "#adadad",
+  },
+});

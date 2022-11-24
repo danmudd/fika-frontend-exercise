@@ -14,13 +14,15 @@ export function MovieItem({ movie }: MovieProps) {
   const navigation =
     useNavigation<RootStackScreenProps<"Movie">["navigation"]>();
 
-  // DM: This is a bit of an untyped mess. I couldn't figure out how to type this in time
-  const selectGenres: (res, genres) => Array<Genre> = useMemo(() => {
+  // DM: This is a bit of an untyped mess. I couldn't figure out how to type this in time!
+  const selectGenres: (res: any, genres: any) => Array<Genre> = useMemo(() => {
     return createSelector(
-      (res) => res.data,
-      (res, genres) => genres,
-      (data, genres) =>
-        data?.genres.filter((genre) => genres.includes(genre.id)) ?? []
+      (res: { data: any }) => res.data,
+      (res: any, genres: any) => genres,
+      (data: { genres: any[] }, genres: string | any[]) =>
+        data?.genres.filter((genre: { id: any }) =>
+          genres.includes(genre.id)
+        ) ?? []
     );
   }, []);
 
@@ -33,16 +35,14 @@ export function MovieItem({ movie }: MovieProps) {
   return (
     <TouchableOpacity
       style={styles.movie}
+      delayPressIn={50} // stops highlighting on scroll
       onPress={() =>
         navigation.navigate("Movie", {
           movieId: movie.id,
         })
       }
     >
-      <Image
-        style={styles.movieImage}
-        source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
-      />
+      <Image style={styles.movieImage} source={{ uri: movie.poster_path }} />
       <View style={styles.infoContainer}>
         <Text style={styles.movieTitle}>{movie.title}</Text>
         <Text>Genres: {genres.map((genre) => genre.name).join(", ")}</Text>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flexDirection: "row",
     backgroundColor: "#fff",
+    borderRadius: 5,
   },
   movieTitle: {
     fontSize: 24,
