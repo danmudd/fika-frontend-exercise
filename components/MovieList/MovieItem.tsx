@@ -1,7 +1,11 @@
-import { Movie } from "../../store/movies/types";
+import { Genre, Movie } from "../../store/movies/types";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackScreenProps } from "../../navigation";
+import { useGetGenresQuery } from "../../store/movies/movieSlice";
+import { createSelector } from "@reduxjs/toolkit";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
 interface MovieProps {
     movie: Movie;
@@ -10,6 +14,17 @@ interface MovieProps {
 export function MovieItem({movie}: MovieProps) {
     const navigation = useNavigation<RootStackScreenProps<"Movie">["navigation"]>();
 
+    // DM: This is a bit of an untyped mess. I couldn't figure out how to type this in time
+    const selectGenres: (res, genres) => Array<Genre> = useMemo(() => {
+        return createSelector(res => res.data, (res, genres) => genres, (data, genres) => data?.genres.filter(genre => genres.includes(genre.id)) ?? []);
+    }, []);
+    
+    const { genres } = useGetGenresQuery(undefined, {
+        selectFromResult: result => ({
+            genres: selectGenres(result, movie.genre_ids)
+        })
+    })
+
     return (
         <TouchableOpacity style={styles.movie} onPress={() => navigation.navigate("Movie", {
             movieId: movie.id
@@ -17,7 +32,7 @@ export function MovieItem({movie}: MovieProps) {
             <Image style={styles.movieImage} source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`}} />
             <View style={styles.infoContainer}>
                 <Text style={styles.movieTitle}>{movie.title}</Text>
-                {/* <Text>Genres: {movie.genres.join(", ")}</Text> */}
+                <Text>Genres: {genres.map(genre => genre.name).join(", ")}</Text>
             </View>
         </TouchableOpacity>
     )

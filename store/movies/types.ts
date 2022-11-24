@@ -12,6 +12,11 @@ interface Movie {
     vote_count: number;
     video: boolean;
     vote_average: number;
+    genre_ids: Array<number>;
+}
+
+type MovieDetail = Omit<Movie, "genre_ids"> & {
+    genres: Array<Genre>;
 }
 
 interface MoviesResponse {
@@ -21,7 +26,7 @@ interface MoviesResponse {
     total_results: number;
 }
 
-type MovieResponse = Movie;
+type MovieResponse = MovieDetail;
 
 interface Genre {
     id: number;
@@ -32,4 +37,4 @@ interface GenreResponse {
     genres: Array<Genre>
 }
 
-export { Movie, Genre, MovieResponse, MoviesResponse, GenreResponse };
+export { Movie, MovieDetail, Genre, MovieResponse, MoviesResponse, GenreResponse };

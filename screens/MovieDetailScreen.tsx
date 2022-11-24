@@ -6,7 +6,7 @@ import { RootStackScreenProps } from "../navigation";
 
 export function MovieDetailScreen({ route }: RootStackScreenProps<"Movie">) {
     const { movieId } = route.params;
-    
+
     return (
         <View style={styles.container}>
             <MovieDetail movieId={movieId} />

@@ -31,7 +31,7 @@ export const moviesApi = createApi({
                         }
                     }
                 }
-            }
+            },
         }),
         getMovie: builder.query<MovieResponse, number>({
             query: (movieId) => ({
@@ -48,4 +48,4 @@ export const moviesApi = createApi({
     })
 })
 
-export const { useGetMoviesQuery, useGetMovieQuery } = moviesApi;
+export const { useGetMoviesQuery, useGetMovieQuery, usePrefetch, useGetGenresQuery } = moviesApi;
