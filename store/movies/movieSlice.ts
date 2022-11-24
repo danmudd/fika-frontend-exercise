@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GenreResponse, MovieResponse, MoviesResponse } from "./types";
+import {
+  GenreResponse,
+  MovieQueryParams,
+  MovieResponse,
+  MoviesResponse,
+} from "./types";
 
 // DM: I don't like having the API key checked into source control here
 const defaultParams = {
@@ -13,8 +18,8 @@ export const moviesApi = createApi({
   reducerPath: "moviesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3/" }),
   endpoints: (builder) => ({
-    getMovies: builder.query<MoviesResponse, string>({
-      query: (query) => {
+    getMovies: builder.query<MoviesResponse, MovieQueryParams>({
+      query: ({ query, page }) => {
         if (query !== "") {
           return {
             url: "search/movie",
@@ -22,6 +27,7 @@ export const moviesApi = createApi({
               ...defaultParams,
               include_adult: "false",
               query,
+              page,
             },
           };
         } else {
@@ -30,6 +36,7 @@ export const moviesApi = createApi({
             params: {
               ...defaultParams,
               include_adult: "false",
+              page,
             },
           };
         }

@@ -10,7 +10,7 @@ interface MovieProps {
   movie: Movie;
 }
 
-export function MovieItem({ movie }: MovieProps) {
+export const MovieItem = React.memo(function MovieItem({ movie }: MovieProps) {
   const navigation =
     useNavigation<RootStackScreenProps<"Movie">["navigation"]>();
 
@@ -49,7 +49,7 @@ export function MovieItem({ movie }: MovieProps) {
       </View>
     </TouchableOpacity>
   );
-}
+});
 
 const styles = StyleSheet.create({
   movie: {

@@ -33,16 +33,14 @@ export function MovieDetail({ movieId }: MovieDetailProps) {
         <ActivityIndicator />
       ) : movie ? (
         <>
-          <View style={styles.coverImageWrapper}>
-            <ImageBackground
-              style={styles.coverImage}
-              source={{ uri: movie.poster_path }}
-            >
-              <View style={styles.titleOverlay}>
-                <Text style={styles.title}>{movie.title}</Text>
-              </View>
-            </ImageBackground>
-          </View>
+          <ImageBackground
+            imageStyle={styles.coverImage}
+            source={{ uri: movie.poster_path }}
+          >
+            <View style={styles.titleOverlay}>
+              <Text style={styles.title}>{movie.title}</Text>
+            </View>
+          </ImageBackground>
         </>
       ) : null}
     </>
@@ -50,14 +48,10 @@ export function MovieDetail({ movieId }: MovieDetailProps) {
 }
 
 const styles = StyleSheet.create({
-  coverImageWrapper: {
-    height: 200,
-    overflow: "hidden",
-  },
   coverImage: {
     width: "100%",
-    height: 600,
-    resizeMode: "cover",
+    height: 400,
+    resizeMode: "contain",
   },
   title: {
     color: "#fff",

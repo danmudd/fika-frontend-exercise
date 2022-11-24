@@ -37,6 +37,11 @@ interface GenreResponse {
   genres: Array<Genre>;
 }
 
+interface MovieQueryParams {
+  query: string;
+  page: number;
+}
+
 export {
   Movie,
   MovieDetail,
@@ -44,4 +49,5 @@ export {
   MovieResponse,
   MoviesResponse,
   GenreResponse,
+  MovieQueryParams,
 };
