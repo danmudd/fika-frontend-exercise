@@ -1,40 +1,47 @@
 interface Movie {
-    id: number;
-    title: string;
-    adult: boolean;
-    backdrop_path: string | null;
-    poster_path: string;
-    overview: string;
-    release_date: string;
-    original_title: string;
-    original_language: string;
-    popularity: number;
-    vote_count: number;
-    video: boolean;
-    vote_average: number;
-    genre_ids: Array<number>;
+  id: number;
+  title: string;
+  adult: boolean;
+  backdrop_path: string | null;
+  poster_path: string;
+  overview: string;
+  release_date: string;
+  original_title: string;
+  original_language: string;
+  popularity: number;
+  vote_count: number;
+  video: boolean;
+  vote_average: number;
+  genre_ids: Array<number>;
 }
 
 type MovieDetail = Omit<Movie, "genre_ids"> & {
-    genres: Array<Genre>;
-}
+  genres: Array<Genre>;
+};
 
 interface MoviesResponse {
-    page: number;
-    results: Array<Movie>;
-    total_pages: number;
-    total_results: number;
+  page: number;
+  results: Array<Movie>;
+  total_pages: number;
+  total_results: number;
 }
 
 type MovieResponse = MovieDetail;
 
 interface Genre {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 interface GenreResponse {
-    genres: Array<Genre>
+  genres: Array<Genre>;
 }
 
-export { Movie, MovieDetail, Genre, MovieResponse, MoviesResponse, GenreResponse };
+export {
+  Movie,
+  MovieDetail,
+  Genre,
+  MovieResponse,
+  MoviesResponse,
+  GenreResponse,
+};
