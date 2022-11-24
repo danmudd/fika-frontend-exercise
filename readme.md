@@ -1,22 +1,32 @@
-# FikaSearch Exercise
+# Fika Community Tech Test
+Hello! This is my solution for the Fika tech test.
 
-The objective of this exercise is to fork this repository and create a `react-native` app called 'FikaSearch'. This app will comprise of a listing page of films and the names of their genres. The page should also allow the user to search the films by typing into a text field.
+I've not worked with `react-native` much before, so this took me a little longer than I'd hoped. It's a little ugly and is far from polished!
 
-We expect you to have an understandable structure, clean code, and to be able to describe your next steps in any aspects of the challenge you arent able to complete in a few of hours.
+## Install & run
+In the root folder: 
 
-## Technical details
+1. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-### API
-You will need to use the following URLs to fetch the films and genres from `the movie db` API:
+2. Run `expo`: 
+    ```bash
+    npm run start
+    ```
 
-movies - [https://api.themoviedb.org/3/discover/movie?api_key=d432b933ecc6d5642d8d2befbc40c7ac&language=en-US&page=1&include_adult=false](https://api.themoviedb.org/3/discover/movie?api_key=d432b933ecc6d5642d8d2befbc40c7ac&language=en-US&page=1&include_adult=false)
+3. Install [Expo Go](https://expo.dev/client) and scan the QR code.
 
-movies search - [https://api.themoviedb.org/3/search/movie?api_key=d432b933ecc6d5642d8d2befbc40c7ac&language=en-US&page=1&include_adult=false&query=searchterm](https://api.themoviedb.org/3/search/movie?api_key=d432b933ecc6d5642d8d2befbc40c7ac&language=en-US&page=1&include_adult=false&query=shrek)
+If you'd instead prefer to use a web browser, you can do that by running:
 
-genres - [https://api.themoviedb.org/3/genre/movie/list?api_key=d432b933ecc6d5642d8d2befbc40c7ac&language=en-US](https://developers.themoviedb.org/3/genres/get-movie-list)
+```bash
+npm run web
+```
 
-#### Images
-
-The API will provide part of the image url via the `poster_path` field of each film. It must be combined with the base image path `https://image.tmdb.org/t/p/w500/`
-
-**Have fun!**
+## Missing features/what's next
+I didn't get to tackle a fair few things I was hoping to do, unfortunately! My next steps would be:
+- Tests - there's obviously no test coverage. I'd have liked some basic unit and integration testing.
+- Refactor component styling - I'm a big fan of things like styled components, and I'd have liked to implement them here rather than direct stylesheets.
+- Hoist RTK queries a level up - I'm not happy with the muddling of data logic and views.
+- Build a hook/higher-order-component for smarter management of RTK Query states to remove a lot of boilerplate.
