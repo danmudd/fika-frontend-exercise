@@ -13,7 +13,10 @@ const pageSize = 20;
 export function MovieList({ query }: MovieListParams) {
   const [page, setPage] = useState<number>(1);
   const [movies, setMovies] = useState<Array<Movie>>([]);
-  const { data, isError, isFetching } = useGetMoviesQuery({ query, page });
+  const { data, isError, isFetching, refetch } = useGetMoviesQuery({
+    query,
+    page,
+  });
 
   useEffect(() => {
     if (data && !isFetching) {
@@ -35,6 +38,11 @@ export function MovieList({ query }: MovieListParams) {
           renderItem={({ item }) => <MovieItem movie={item} />}
           onEndReached={() => (isFetching ? undefined : setPage(page + 1))}
           onEndReachedThreshold={2}
+          refreshing={!!data && isFetching}
+          onRefresh={() => {
+            setPage(1);
+            refetch();
+          }}
           ListFooterComponent={<ListFooter isFetching={isFetching} />}
         />
       ) : null}
